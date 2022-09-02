@@ -1,5 +1,30 @@
+@use "sass:math";
 @import './helpers/_mixins.scss';
 
-.square {
-	@include square(black, 100px, 200px);
+$color-picker : (1: red, 2:yellow,3: orange,4: green,5: blue,6: indigo,7: purple);
+$icon : "/images/pen-solid.svg";
+.container {
+	height: 600px;
+	width: 700px;
+	border: 1px solid black;
+	margin: auto;
+	transform: translateY(10%);
+	display: flex;
+	#draw {
+		cursor: url($icon), pointer;
+	}
+	&__child {
+		flex: 1;
+		cursor: pointer;
+		&-item {
+			background-color: red;
+			height: math.div(1, 7) * 100%;
+			width: 80px;
+			@each $name, $item in $color-picker {
+				&:nth-child(#{$name}){
+					background-color: $item;
+				}
+			}	
+		}
+	}
 }
